@@ -15,6 +15,13 @@ public:
     ~Session();
     void start();
     vector<string> interpreter(string input);
+    void insertUser( User* newUser);
+    void setActiveUser(const User* actUser);
+    void addActionLog(BaseAction *newAction);
+    const vector<string> getMsg ()const;
+    bool insertNewUser();
+    bool changeActiveUser(string userName);
+    bool deleteUser(string userName);
     User& get_activeUser() const;
     vector<Watchable*> get_content() const;
 private:
@@ -22,7 +29,7 @@ private:
     std::vector<BaseAction*> actionsLog;
     std::unordered_map<std::string,User*> userMap;
     User* activeUser;
-    //vector<string> inputMsg;
+    vector<string> inputMsg;
 
 };
 #endif
