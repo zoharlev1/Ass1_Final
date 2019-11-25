@@ -11,34 +11,45 @@
 #include <iterator>
 using namespace std;
 
-//Watchable Constructor implementation
+////Watchable Constructor implementation
 Watchable::Watchable(long id, int length, const std::vector<std::string> &tags):id(id),length(length),tags(tags){}
 
-//Watchable Destructor
+////Watchable Destructor
 Watchable::~Watchable() {}
 
 
-
-
-//Movie class ------------------------------------------------------------------------------------------
-//Movie constructor
-Movie::Movie(long id, const std::string &name, int length, const std::vector<std::string> &tags):name(name), Watchable(id,length,tags){}
-
-//get id method
+////get id method
 long Watchable::get_id() const{
+
     return id;
 }
-//get length method
+////get length method
 int Watchable::get_length() const{
     return length;
 }
 
-//get Tags Vector method
+////get Tags Vector method
 std::vector<std::string> Watchable::get_tags() const{
     return tags;
 }
 
-//Movie toString
+///set Type
+void Watchable::set_Type(bool t) {
+    type = t;
+}
+
+///get Type
+
+
+
+////Movie class ------------------------------------------------------------------------------------------
+////Movie constructor
+Movie::Movie(long id, const std::string &name, int length, const std::vector<std::string> &tags):name(name), Watchable(id,length,tags){
+    set_Type(false);
+}
+
+
+////Movie toString
 string Movie::toString() const {
     vector<string> vec = get_tags();
     std::ostringstream vts;
@@ -53,17 +64,20 @@ string Movie::toString() const {
  return output ;
 };
 
-// Movie getNextWatchable
+//// Movie getNextWatchable
 Watchable* Movie::getNextWatchable(Session &) const {
     return nullptr;
 }
-//-------------------------------------------------------------------------------------------------
+////-------------------------------------------------------------------------------------------------
 
-//Episode class -----------------------------------------------------------------------------------
-//Episode constructor
-Episode::Episode(long id, const std::string &seriesName, int length, int season, int episode,const std::vector<std::string> &tags):seriesName(seriesName),season(season),episode(episode), Watchable(id,length,tags) {}
+////Episode class -----------------------------------------------------------------------------------
+////Episode constructor
+Episode::Episode(long id, const std::string &seriesName, int length, int season, int episode,const std::vector<std::string> &tags):seriesName(seriesName),season(season),episode(episode), Watchable(id,length,tags) {
+    set_Type(true);
 
-//Episode toString
+}
+
+////Episode toString
 string Episode::toString() const {
     vector<string> vec = get_tags();
     std::ostringstream vts;
@@ -78,8 +92,13 @@ string Episode::toString() const {
     return output ;
 }
 
-//Episode getNextWatchable
+///Episode getNextWatchable
 Watchable* Episode::getNextWatchable(Session &) const {
     return nullptr;
 }
-//-----------------------------------------------------------------------------------------------------
+
+///set nextEpisodeId
+void Episode::set_nextEpisodeId(int id) {
+    this->nextEpisodeId = id;
+}
+////-----------------------------------------------------------------------------------------------------

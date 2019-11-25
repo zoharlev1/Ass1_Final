@@ -4,6 +4,9 @@
 #include <unordered_map>
 #include "../include/User.h"
 #include "../include/Session.h"
+#include "../include/Watchable.h"
+#include <cstdlib>
+#include  <cmath>
 using namespace std;
 
 ////User Constructor
@@ -29,14 +32,45 @@ LengthRecommenderUser::LengthRecommenderUser(const std::string &name) : User(nam
 /// get history user history vector, iterate on it and find the average length, now iterate on content vector while saving content
 /// with minimum difference between average and current content length. check if current content is in history vector
 Watchable* LengthRecommenderUser::getRecommendation(Session& s) {
+    Watchable* output = nullptr;
+    User& currUser = s.get_activeUser();
+    vector<Watchable*> currHistory = currUser.get_history();
+    //if the user has just finished watching an episode we need to recommend the next episode if there is one
+    if(currHistory[currHistory.size()-1]-> ){
+
+    }
+
+
     //finding user average length
     int lengthaAcumulator = 0;
     int counter = 0;
-//    vector<Watchable*> CurrHistory = s.get_activeUser()->;
-//    for (auto x : ){
-//        lengthaAcumulator =
-//    }
+    for (Watchable* x : currHistory){
+        int currLength = x->get_length();
+        lengthaAcumulator = lengthaAcumulator + currLength;
+        counter++;
+    }
+    int averageLength = lengthaAcumulator/counter;
 
+    vector<Watchable*> currContent = s.get_content();
+    int minLengthDifference = INT_MAX;
+    bool watched = false;
+    for(Watchable* nextWatchCanidate : currContent){
+        int currLength = nextWatchCanidate->get_length();
+        if(abs(averageLength-currLength) < minLengthDifference){
+            for(int i=0 ; i<currHistory.size() && !watched; i++){
+                  if(currHistory[i]->get_id() == nextWatchCanidate->get_id()){
+                      watched = true;
+                  }
+            }
+            if(!watched){
+                minLengthDifference = abs(averageLength-currLength);
+                output = nextWatchCanidate;
+            }
+            watched = false;
+        }
+    }
+
+    return output;
 }
 
 ///-----------------------------------------------------------------------
