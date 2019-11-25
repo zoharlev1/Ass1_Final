@@ -16,10 +16,12 @@ public:
     long get_id() const;
     int get_length() const;
     std::vector<std::string> get_tags() const;
+    void set_Type(bool type);
 private:
     const long id;
     int length;
     std::vector<std::string> tags;
+    bool type; // Movie = false ; Episode = True;
 };
 
 class Movie : public Watchable{
@@ -37,6 +39,7 @@ public:
     Episode(long id, const std::string& seriesName,int length, int season, int episode ,const std::vector<std::string>& tags);
     virtual std::string toString() const;
     virtual Watchable* getNextWatchable(Session&) const;
+    virtual void set_nextEpisodeId(int id);
 private:
     std::string seriesName;
     int season;

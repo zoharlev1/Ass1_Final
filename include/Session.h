@@ -22,14 +22,14 @@ public:
     bool insertNewUser();
     bool changeActiveUser(string userName);
     bool deleteUser(string userName);
-    zohar
+    User& get_activeUser() const;
+    vector<Watchable*> get_content() const;
 private:
     std::vector<Watchable*> content;
     std::vector<BaseAction*> actionsLog;
     std::unordered_map<std::string,User*> userMap;
     User* activeUser;
     vector<string> inputMsg;
-
 
 };
 #endif
