@@ -22,6 +22,7 @@ public:
     bool insertNewUser();
     bool changeActiveUser(string userName);
     bool deleteUser(string userName);
+    zohar
 private:
     std::vector<Watchable*> content;
     std::vector<BaseAction*> actionsLog;
